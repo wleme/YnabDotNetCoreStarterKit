@@ -29,6 +29,13 @@ namespace YnabStarterKit
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHttpClient("YnabClient", options =>
+            {
+                options.BaseAddress = new Uri(_config["Ynab:Uri:BaseUrl"]);
+                options.Timeout = new TimeSpan(0, 0, 30);
+                options.DefaultRequestHeaders.Clear();
+            });
+
             services.AddMvc()
                   .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 

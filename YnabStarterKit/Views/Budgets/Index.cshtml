@@ -1,3 +1,7 @@
 ﻿@model YnabStarterKit.Models.YnabBudgetData
 
-<span>@Model.Data.Budgets.Count</span>
+@foreach (YnabStarterKit.Models.YnabBudget budget in Model.Data.Budgets)
+{
+    <a asp-action="categories" asp-route-budgetId="@budget.Id">@budget.Name</a>
+}
+

@@ -13,7 +13,7 @@ namespace YnabStarterKit.Models
 
     public class YnabBudgetDataItem
     {
-        public List<YnabBudgetData> Budgets { get; set; }
+        public List<YnabBudget> Budgets { get; set; }
     }
 
     public class YnabBudget

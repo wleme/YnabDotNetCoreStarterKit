@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,6 @@ using System.Threading.Tasks;
 
 namespace YnabStarterKit.Controllers
 {
-    [Route("/[controller]")]
     public class BudgetsController : Controller
     {
         private readonly Services.Ynab _ynab;
@@ -18,20 +18,20 @@ namespace YnabStarterKit.Controllers
             this._ynab = ynab;
         }
 
-        [Route("index")]
         [Authorize]
-        public async Task<IActionResult> Budgets()
+        public async Task<IActionResult> Index()
         {
-            var b = await _ynab.GetBudgets("asdf");
-            //return View(new ViewModels.AccountInfo() { YnabId = User.FindFirst(c => c.Type == ClaimTypes.Sid)?.Value });
-            return View(b);
+            var token = await HttpContext.GetTokenAsync("access_token");
+            var data = await _ynab.GetBudgets(token);
+            return View(data);
         }
-        [Route("{budgetId:string}")]
+
         [Authorize]
-        public async Task<IActionResult> Budget(string budgetId)
+        public async Task<IActionResult> Categories(string budgetId)
         {
-            var b = await _ynab.GetBudgets("asdf");
-            return View(b);
+            var token = await HttpContext.GetTokenAsync("access_token");
+            var data = await _ynab.GetCategories(token,budgetId);
+            return View(data);
         }
     }
 }

@@ -1,0 +1,11 @@
+﻿@model YnabStarterKit.Models.YnabCategoryData
+
+
+@foreach (YnabStarterKit.Models.YnabCategoryGroup group in Model.Data.Category_Groups)
+{
+    <h3>@group.Name</h3>
+    @foreach (YnabStarterKit.Models.YnabCategory category in group.Categories)
+    {
+        <div>cat: @category.Name</div>
+    }
+}
